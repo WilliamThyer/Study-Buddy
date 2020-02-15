@@ -39,7 +39,3 @@ class Webcam():
             cv2.imwrite(str(savedir/f'{image_counter}.png'), frame)
             image_counter += 1
             time.sleep(wait)
-
-
-wc = Webcam()
-wc.write_image_stream()
