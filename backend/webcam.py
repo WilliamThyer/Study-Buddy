@@ -41,7 +41,7 @@ class Webcam():
             image_counter += 1
             time.sleep(wait)
 
-    def convert_to_fastai(frame):
+    def convert_to_fastai(self,frame):
         img_fastai = Image(pil2tensor(frame, dtype=np.float32).div_(255)
         return img_fastai
 
