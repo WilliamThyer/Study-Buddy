@@ -3,6 +3,7 @@ import pathlib
 import time
 
 import cv2
+import fastai
 
 
 class Webcam():
@@ -39,3 +40,8 @@ class Webcam():
             cv2.imwrite(str(savedir/f'{image_counter}.png'), frame)
             image_counter += 1
             time.sleep(wait)
+
+    def convert_to_fastai(frame):
+        img_fastai = Image(pil2tensor(frame, dtype=np.float32).div_(255)
+        return img_fastai
+
