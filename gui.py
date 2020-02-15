@@ -1,5 +1,4 @@
 from gooey import Gooey, GooeyParser
-import ast
 
 @Gooey()
 def main():
@@ -14,7 +13,9 @@ def main():
     )
     
     args = parser.parse_args()
-    return args
+    minutes = int(args.Timer[0])
+    return minutes
 
-args = main()
-print(int(args.Timer[0]))
+if __name__ == '__main__':
+    minutes = main()
+    print(minutes)
