@@ -1,4 +1,3 @@
-import random
 import os
 import shutil
 
@@ -17,8 +16,8 @@ os.mkdir('valid/attend')
 os.mkdir('valid/nonattend')
 
 for d in os.listdir('.'):
-    if os.path.isdir(d) and d not in ('train', 'valid'):
-        dataset = 'valid' if random.random() <= 0.3 else 'train'
+    if os.path.isdir(d) and d not in ('train', 'valid', 'pilot'):
+        dataset = 'valid' if int(d) <= 4 else 'train'
         folder = 'nonattend' if int(d) % 2 == 0 else 'attend'
 
         for f in os.listdir(d):
