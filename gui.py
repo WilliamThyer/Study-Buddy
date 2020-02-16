@@ -86,5 +86,6 @@ class Study_Buddy:
 sb = Study_Buddy()
 sb.load_model()
 sb.get_minutes()
+sb.wb.show_align_face_window(delay=5)
 sb.study_timer()
 sb.plot_attention()
