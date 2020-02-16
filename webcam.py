@@ -1,12 +1,24 @@
 import os
 import pathlib
 import time
-#from fastai.vision import *
+from fastai.vision import *
 import cv2
 
 
 class Webcam():
     def __init__(self):
+        temp_capture = cv2.VideoCapture(0)
+
+        cv2.namedWindow('Align face...', cv2.WINDOW_NORMAL)
+
+        start_time = time.time()
+        while time.time() < start_time + 5:
+            _, frame = temp_capture.read()
+            cv2.resizeWindow('Align face...', 480, 270)
+            cv2.imshow('Align face...', frame)
+            cv2.waitKey(1)
+        cv2.destroyWindow('Align face...')
+
         self.capture = cv2.VideoCapture(0)
 
     def get_image(self):
@@ -54,7 +66,3 @@ class Webcam():
     def convert_to_fastai(self, frame):
         img_fastai = Image(pil2tensor(frame, dtype=np.float32).div_(255))
         return img_fastai
-
-
-wb = Webcam()
-wb.show_align_face_window()
