@@ -10,6 +10,9 @@ d9, d10, d11 = dynamics.Dynamic(.8), dynamics.Dynamic(.9), dynamics.Dynamic(1)
 n1, n2, n3, n4 = note.Note('Db4'), note.Note('Eb4'), note.Note('E'), note.Note('Gb')
 n5, n6, n7 = note.Note('Ab'), note.Note('A'), note.Note('B')
 
+for note in [n1, n2, n3, n4, n5, n6, n7]:
+    note.duration.quarterLength = 3
+
 # Dictionary of unpleasant sounds
 punishment = {
     1: [d1, n1, n2],
@@ -22,7 +25,7 @@ punishment = {
     8: [d8, n1, n2, n3, n4, n5],
     9: [d9, n1, n2, n3, n4, n5, n6],
     10: [d10, n1, n2, n3, n4, n5, n6],
-    11: [d11, n1, n2, n3, n4, n5, n6, n7],
+    11: [d11, n1, n2, n3, n4, n5, n6, n7]
 }
 
 
