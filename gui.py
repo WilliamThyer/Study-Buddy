@@ -45,7 +45,7 @@ class Study_Buddy:
                 result = self.attention_classifier(frame)
                 result = str(result[0])
                 self.handle_classification(result)
-                time.sleep(1)
+                time.sleep(.75)
         print(self.output)
 
     def handle_classification(self,result):
@@ -59,7 +59,7 @@ class Study_Buddy:
             self.distracted_tracker[0] = 1
             self.output.append(1)
 
-        if sum(self.distracted_tracker) >= 5:
+        if sum(self.distracted_tracker) >= 6:
             self.punish_mode = 'On'
             self.inattn_counter += 1
             punish(self.inattn_counter)
@@ -72,10 +72,18 @@ class Study_Buddy:
     
     def plot_attention(self):
         data = self.running_mean(self.output)
-        plt.plot(data,np.arange(0,len(data)))
-        plt.xlabel('Study Time (seconds)')
+        print(data.shape)
+        plt.plot(np.arange(0,len(data)),~data)
+        plt.xlabel('Study Time')
         plt.ylabel('Concentration Score')
         plt.title('Study Buddy Report')
+        plt.tick_params(
+            axis='x',          # changes apply to the x-axis
+            which='both',      # both major and minor ticks are affected
+            bottom=False,      # ticks along the bottom edge are off
+            top=False,         # ticks along the top edge are off
+            labelbottom=False) # labels along the bottom edge are off
+        
         plt.show()
         plt.savefig('test.png')
 
