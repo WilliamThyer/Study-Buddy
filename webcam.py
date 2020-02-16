@@ -7,18 +7,6 @@ import cv2
 
 class Webcam():
     def __init__(self):
-        temp_capture = cv2.VideoCapture(0)
-
-        cv2.namedWindow('Align face...', cv2.WINDOW_NORMAL)
-
-        start_time = time.time()
-        while time.time() < start_time + 5:
-            _, frame = temp_capture.read()
-            cv2.resizeWindow('Align face...', 480, 270)
-            cv2.imshow('Align face...', frame)
-            cv2.waitKey(1)
-        cv2.destroyWindow('Align face...')
-
         self.capture = cv2.VideoCapture(0)
 
     def get_image(self):
@@ -26,15 +14,17 @@ class Webcam():
         return frame
 
     def show_align_face_window(self, delay=5):
+        temp_capture = cv2.VideoCapture(0)
+
         cv2.namedWindow('Align face...', cv2.WINDOW_NORMAL)
 
         start_time = time.time()
         while time.time() < start_time + delay:
-            frame = self.get_image()
+            _, frame = temp_capture.read()
             cv2.resizeWindow('Align face...', 480, 270)
             cv2.imshow('Align face...', frame)
-            cv2.waitKey(delay)
-        cv2.destroyAllWindows()
+            cv2.waitKey(1)
+        cv2.destroyWindow('Align face...')
 
     def make_frame_folder(self, savedirbase='frames'):
         if not os.path.isdir(savedirbase):
