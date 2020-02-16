@@ -19,8 +19,8 @@ class Webcam():
         start_time = time.time()
         while time.time() < start_time + delay:
             frame = self.get_image()
+            cv2.resizeWindow('Align face...', 480, 270)
             cv2.imshow('Align face...', frame)
-            cv2.resizeWindow('Align face...', 320, 180)
             cv2.waitKey(delay)
         cv2.destroyAllWindows()
 
