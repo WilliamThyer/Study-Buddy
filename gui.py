@@ -21,6 +21,7 @@ class Study_Buddy:
 
     @Gooey(program_name='Study Buddy', image_dir='./icons')
     def get_minutes(self):
+        
         min_list = ['1','2','5','10','15','30','45','60']
         parser = GooeyParser(description="The study buddy you love to hate")
         parser.add_argument(
@@ -55,20 +56,16 @@ class Study_Buddy:
 
         if sum(self.distracted_tracker) >= 5:
             self.punish_mode = 'On'
-            # print(self.punish_mode)
             self.inattn_counter += 1
             punish(self.inattn_counter)
         elif self.punish_mode == 'On':
             self.punish_mode = 'Off'
-            # print(self.punish_mode)
             self.inattn_counter = 0
     
     def attention_classifier(self,frame):
         return self.learn.predict(frame)
         
-
 sb = Study_Buddy()
 sb.load_model()
-
 sb.get_minutes()
 sb.study_timer()
