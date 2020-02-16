@@ -45,8 +45,10 @@ class Study_Buddy:
                 result = self.attention_classifier(frame)
                 result = str(result[0])
                 self.handle_classification(result)
-                time.sleep(.75)
-        print(self.output)
+                if result == 'nonattend' and self.punish_mode == 'On':
+                    pass
+                else:
+                    time.sleep(.75)
 
     def handle_classification(self,result):
 
@@ -71,9 +73,8 @@ class Study_Buddy:
         return self.learn.predict(frame)
     
     def plot_attention(self):
-        data = self.running_mean(self.output)
-        print(data.shape)
-        plt.plot(np.arange(0,len(data)),~data)
+        data = self.running_mean(np.invert(np.array(self.output)))
+        plt.plot(np.arange(0,len(data)),data)
         plt.xlabel('Study Time')
         plt.ylabel('Concentration Score')
         plt.title('Study Buddy Report')
@@ -83,6 +84,11 @@ class Study_Buddy:
             bottom=False,      # ticks along the bottom edge are off
             top=False,         # ticks along the top edge are off
             labelbottom=False) # labels along the bottom edge are off
+        plt.tick_params(
+            axis='y',          # changes apply to the x-axis
+            which='both',      # both major and minor ticks are affected
+            left=False,      # ticks along the bottom edge are off
+            labelleft=False) # labels along the bottom edge are off
         
         plt.show()
         plt.savefig('test.png')
