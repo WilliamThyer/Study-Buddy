@@ -1,10 +1,8 @@
 import os
 import pathlib
 import time
-
+from fastai.vision import *
 import cv2
-#import fastai
-
 
 class Webcam():
     def __init__(self):
@@ -46,5 +44,5 @@ class Webcam():
         return img_fastai
 
 
-wb = Webcam()
-wb.write_image_stream(length=120)
+# wb = Webcam()
+# wb.write_image_stream(length=120)
