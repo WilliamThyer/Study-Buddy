@@ -11,7 +11,7 @@ n1, n2, n3, n4 = note.Note('Db4'), note.Note('Eb4'), note.Note('E'), note.Note('
 n5, n6, n7 = note.Note('Ab'), note.Note('A'), note.Note('B')
 
 for note in [n1, n2, n3, n4, n5, n6, n7]:
-    note.duration.quarterLength = 3
+    note.duration.quarterLength = 2
 
 # Dictionary of unpleasant sounds
 punishment = {
