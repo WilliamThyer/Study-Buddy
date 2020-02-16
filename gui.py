@@ -33,7 +33,7 @@ class Study_Buddy:
 
         start_time = time.time()
         while time.time() < start_time + length:
-                frame = self.wb.get_image()
+                frame = self.wb.convert_to_image(self.wb.get_image())
                 #result = attention_classifier(frame)
                 self.handle_classification(result)
                 time.sleep(1)
