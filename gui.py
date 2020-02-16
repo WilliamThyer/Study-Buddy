@@ -1,10 +1,11 @@
 import time
 import numpy as np
 import cv2
+import random
 
 from gooey import Gooey, GooeyParser
 
-from backend import webcam
+import webcam
 from punish import *
 
 class Study_Buddy:
@@ -32,9 +33,10 @@ class Study_Buddy:
     def study_timer(self):
 
         start_time = time.time()
-        while time.time() < start_time + length:
-                frame = self.wb.convert_to_image(self.wb.get_image())
-                #result = attention_classifier(frame)
+        while time.time() < start_time + self.minutes:
+                # frame = self.wb.convert_to_image(self.wb.get_image())
+                result = self.attention_classifier()
+                print(result)
                 self.handle_classification(result)
                 time.sleep(1)
 
@@ -42,18 +44,24 @@ class Study_Buddy:
 
         self.distracted_tracker = np.roll(self.distracted_tracker,1)
 
-        if result is 'focused':
+        if result == 'focused':
             self.distracted_tracker[0] = 0
-        else:
+        if result == 'distracted':
             self.distracted_tracker[0] = 1
 
         if sum(self.distracted_tracker) >= 5:
             self.punish_mode = 'On'
+            print(self.punish_mode)
             self.inattn_counter += 1
             punish(self.inattn_counter)
         elif self.punish_mode == 'On':
             self.punish_mode = 'Off'
+            print(self.punish_mode)
             self.inattn_counter = 0
+    
+    def attention_classifier(self):
+        result = 'focused' if random.random() < 0.45 else 'distracted'
+        return result
 
 sb = Study_Buddy()
 
