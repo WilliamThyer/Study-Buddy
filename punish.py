@@ -2,8 +2,8 @@ from music21 import *
 import random
 
 # Increasingly louder volumes
-d1, d2, d3, d4 = dynamics.Dynamic(.25), dynamics.Dynamic(.3), dynamics.Dynamic(.35), dynamics.Dynamic(.4)
-d5, d6, d7, d8 = dynamics.Dynamic(.45), dynamics.Dynamic(.5), dynamics.Dynamic(.6), dynamics.Dynamic(.7)
+d1, d2, d3, d4 = dynamics.Dynamic(.35), dynamics.Dynamic(.4), dynamics.Dynamic(.45), dynamics.Dynamic(.5)
+d5, d6, d7, d8 = dynamics.Dynamic(.55), dynamics.Dynamic(.6), dynamics.Dynamic(.65), dynamics.Dynamic(.7)
 d9, d10, d11 = dynamics.Dynamic(.8), dynamics.Dynamic(.9), dynamics.Dynamic(1)
 
 # Discordant notes
