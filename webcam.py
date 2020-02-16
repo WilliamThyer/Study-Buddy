@@ -45,5 +45,6 @@ class Webcam():
         img_fastai = Image(pil2tensor(frame, dtype=np.float32).div_(255))
         return img_fastai
 
+
 wb = Webcam()
-wb.write_image_stream(length = 15)
+wb.write_image_stream(length=120)
