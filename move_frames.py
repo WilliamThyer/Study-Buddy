@@ -17,7 +17,7 @@ os.mkdir('valid/nonattend')
 
 for d in os.listdir('.'):
     if os.path.isdir(d) and d not in ('train', 'valid', 'pilot'):
-        dataset = 'valid' if int(d) <= 4 else 'train'
+        dataset = 'valid' if int(d) <= 6 else 'train'
         folder = 'nonattend' if int(d) % 2 == 0 else 'attend'
 
         for f in os.listdir(d):
