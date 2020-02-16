@@ -1,9 +1,8 @@
 import os
 import pathlib
 import time
-
+#from fastai.vision import *
 import cv2
-#import fastai
 
 
 class Webcam():
@@ -13,6 +12,17 @@ class Webcam():
     def get_image(self):
         _, frame = self.capture.read()
         return frame
+
+    def show_align_face_window(self, delay=5):
+        cv2.namedWindow('Align face...', cv2.WINDOW_NORMAL)
+
+        start_time = time.time()
+        while time.time() < start_time + delay:
+            frame = self.get_image()
+            cv2.resizeWindow('Align face...', 480, 270)
+            cv2.imshow('Align face...', frame)
+            cv2.waitKey(delay)
+        cv2.destroyAllWindows()
 
     def make_frame_folder(self, savedirbase='frames'):
         if not os.path.isdir(savedirbase):
@@ -47,4 +57,4 @@ class Webcam():
 
 
 wb = Webcam()
-wb.write_image_stream(length=120)
+wb.show_align_face_window()

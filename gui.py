@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import random
 from fastai.vision import *
+import matplotlib.pyplot as plt
 
 from gooey import Gooey, GooeyParser
 
@@ -21,6 +22,7 @@ class Study_Buddy:
 
     @Gooey(program_name='Study Buddy', image_dir='./icons')
     def get_minutes(self):
+        
         min_list = ['1','2','5','10','15','30','45','60']
         parser = GooeyParser(description="The study buddy you love to hate")
         parser.add_argument(
@@ -32,17 +34,19 @@ class Study_Buddy:
         )
 
         args = parser.parse_args()
-        self.minutes = int(args.Timer[0])*60
+        self.length = int(args.Timer[0])*60
     
     def study_timer(self):
 
         start_time = time.time()
-        while time.time() < start_time + self.minutes:
+        self.output = []
+        while time.time() < start_time + self.length:
                 frame = self.wb.convert_to_fastai(self.wb.get_image())
                 result = self.attention_classifier(frame)
                 result = str(result[0])
                 self.handle_classification(result)
                 time.sleep(1)
+        print(self.output)
 
     def handle_classification(self,result):
 
@@ -50,25 +54,38 @@ class Study_Buddy:
         print(result)
         if result == 'attend':
             self.distracted_tracker[0] = 0
+            self.output.append(0)
         if result == 'nonattend':
             self.distracted_tracker[0] = 1
+            self.output.append(1)
 
         if sum(self.distracted_tracker) >= 5:
             self.punish_mode = 'On'
-            # print(self.punish_mode)
             self.inattn_counter += 1
             punish(self.inattn_counter)
         elif self.punish_mode == 'On':
             self.punish_mode = 'Off'
-            # print(self.punish_mode)
             self.inattn_counter = 0
     
     def attention_classifier(self,frame):
         return self.learn.predict(frame)
-        
+    
+    def plot_attention(self):
+        data = self.running_mean(self.output)
+        plt.plot(data,np.arange(0,len(data)))
+        plt.xlabel('Study Time (seconds)')
+        plt.ylabel('Concentration Score')
+        plt.title('Study Buddy Report')
+        plt.show()
+        plt.savefig('test.png')
 
+    def running_mean(self,data):
+        cumsum = np.cumsum(np.insert(data, 0, 0)) 
+        return (cumsum[10:] - cumsum[:-10]) / float(10)
+        
 sb = Study_Buddy()
 sb.load_model()
-
 sb.get_minutes()
+sb.wb.show_align_face_window(delay=5)
 sb.study_timer()
+sb.plot_attention()
